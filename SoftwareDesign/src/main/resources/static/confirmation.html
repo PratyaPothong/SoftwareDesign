@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+</head>
+<body>
+    <h1>Reservation Confirmed</h1>
+    <p>Your reservation has been successfully confirmed.</p>
+
+    <p>Reservation Details:</p>
+    <ul>
+        <li>Name: <span id="confirmationName"></span></li>
+        <li>Email: <span id="confirmationEmail"></span></li>
+        <li>Date: <span id="confirmationDate"></span></li>
+        <li>Time: <span id="confirmationTime"></span></li>
+        <li>Selected Table: <span id="confirmationTable"></span></li>
+        <li>Number of Guests: <span id="confirmationGuests"></span></li>
+    </ul>
+
+    <script>
+        // Add JavaScript code to display reservation details here
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('confirmationName').innerText = params.get('name');
+            document.getElementById('confirmationEmail').innerText = params.get('email');
+            document.getElementById('confirmationDate').innerText = params.get('date');
+            document.getElementById('confirmationTime').innerText = params.get('time');
+            document.getElementById('confirmationTable').innerText = params.get('selectedTable');
+            document.getElementById('confirmationGuests').innerText = params.get('guests');
+        });
+    </script>
+</body>
+</html>

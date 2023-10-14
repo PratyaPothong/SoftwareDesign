@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Reservation</title>
+    <style>
+        /* Add your custom CSS styling here */
+        .table-selection {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .table {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .table.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Add more styling as needed */
+    </style>
+</head>
+<body>
+    <h1>Table Selection</h1>
+    <p>Select a table for your reservation:</p>
+    
+    <div class="table-selection" id="tableSelection">
+        <!-- Add JavaScript to dynamically populate tables here -->
+    </div>
+
+    <form action="confirmation.html" method="post">
+        <input type="hidden" id="selectedTable" name="selectedTable">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required><br>
+
+        <label for="guests">Number of Guests:</label>
+        <input type="number" id="guests" name="guests" required><br>
+
+        <input type="submit" value="Reserve">
+    </form>
+
+    <script>
+        // Add JavaScript code to handle table selection here
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableSelection = document.getElementById('tableSelection');
+
+            // Example: dynamically creating tables
+            for (let i = 1; i <= 10; i++) {
+                const table = document.createElement('div');
+                table.className = 'table';
+                table.innerText = 'Table ' + i;
+
+                table.addEventListener('click', function() {
+                    // Set the selected table in a hidden input field
+                    document.getElementById('selectedTable').value = 'Table ' + i;
+
+                    // Toggle selected class for styling
+                    table.classList.toggle('selected');
+                });
+
+                tableSelection.appendChild(table);
+            }
+        });
+    </script>
+</body>
+</html>
