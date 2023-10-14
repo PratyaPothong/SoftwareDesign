@@ -25,7 +25,7 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Reservation getReservationById(Long id) throws NotFoundException {
+    public Reservation getReservationById(Integer id) throws NotFoundException {
         Optional<Reservation> reservation = reservationRepository.findById(id);
         if (reservation.isPresent()) {
             return reservation.get();
@@ -34,7 +34,7 @@ public class ReservationService {
         }
     }
 
-    public void deleteReservation(Long id) {
+    public void deleteReservation(Integer id) {
         reservationRepository.deleteById(id);
     }
 }

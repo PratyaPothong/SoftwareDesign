@@ -1,34 +1,37 @@
 package com.example.demo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Table {
+public class RestaurantTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;  // Changed from int to Integer
+
+    @Column(name = "table_name", nullable = false)
     private String tableName;
+
+    @Column(nullable = false)
     private int capacity;
 
-    // Constructors, getters, and setters
-
-    public Table() {
+    public RestaurantTable() {
     }
 
-    public Table(String tableName, int capacity) {
+    public RestaurantTable(String tableName, int capacity) {
         this.tableName = tableName;
         this.capacity = capacity;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

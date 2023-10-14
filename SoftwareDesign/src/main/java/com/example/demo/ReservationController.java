@@ -2,7 +2,10 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -10,18 +13,22 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
-    private final TableService tableService;
+    private final RestaurantTableService restaurantTableService;
 
     @Autowired
-    public ReservationController(ReservationService reservationService, TableService tableService) {
+    public ReservationController(ReservationService reservationService, RestaurantTableService restaurantTableService) {
         this.reservationService = reservationService;
-        this.tableService = tableService;
+        this.restaurantTableService = restaurantTableService;
     }
 
     @PostMapping("/create")
     public Reservation createReservation(@RequestBody Reservation reservation) {
-        // Add business logic for reservation creation and validation
-        return reservationService.createReservation(reservation);
+        try {
+            // Add business logic for reservation creation and validation
+            return reservationService.createReservation(reservation);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid reservation data", e);
+        }
     }
 
     @GetMapping("/all")
@@ -30,13 +37,13 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    public Reservation getReservationById(@PathVariable Long id) throws NotFoundException {
+    public Reservation getReservationById(@PathVariable Integer id) throws NotFoundException {
         return reservationService.getReservationById(id);
     }
 
     @GetMapping("/tables/all")
-    public List<Table> getAllTables() {
-        return tableService.getAllTables();
+    public List<RestaurantTable> getAllTables() {
+        return restaurantTableService.getAllTables();
     }
 
     // Additional endpoints for updating and deleting reservations

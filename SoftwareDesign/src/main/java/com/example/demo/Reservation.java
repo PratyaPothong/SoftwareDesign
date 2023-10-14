@@ -1,41 +1,45 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-import java.time.LocalDateTime;
 
 @Entity
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;  // Changed from int to Integer
+
     private LocalDateTime reservationTime;
 
     @ManyToOne
-    private Table table;
+    @JoinColumn(name = "table_id")
+    private RestaurantTable table;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime reservationTime, Table table, Customer customer) {
+    public Reservation(LocalDateTime reservationTime, RestaurantTable table, Customer customer) {
         this.reservationTime = reservationTime;
         this.table = table;
         this.customer = customer;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,11 +51,11 @@ public class Reservation {
         this.reservationTime = reservationTime;
     }
 
-    public Table getTable() {
+    public RestaurantTable getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
+    public void setTable(RestaurantTable table) {
         this.table = table;
     }
 
